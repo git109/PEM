@@ -1,4 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="PEM" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="878" systemVersion="11C74" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <elements/>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="878" systemVersion="11C74" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Profile" syncable="YES">
+        <attribute name="firstName" attributeType="String" syncable="YES"/>
+        <attribute name="id" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="lastName" attributeType="String" syncable="YES"/>
+        <attribute name="password" attributeType="String" syncable="YES"/>
+        <attribute name="userName" attributeType="String" syncable="YES"/>
+        <relationship name="collects" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TrackingData" inverseName="belongs" inverseEntity="TrackingData" syncable="YES"/>
+    </entity>
+    <entity name="TrackingData" syncable="YES">
+        <attribute name="altitude" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="caloriesBurned" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="coEmission" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="distance" optional="YES" attributeType="Decimal" defaultValueString="0" syncable="YES"/>
+        <attribute name="journeyNo" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="speed" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
+        <relationship name="belongs" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Profile" inverseName="collects" inverseEntity="Profile" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Profile" positionX="-4475" positionY="-3483" width="128" height="135"/>
+        <element name="TrackingData" positionX="-4158" positionY="-3339" width="128" height="150"/>
+    </elements>
 </model>

@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PEMLoginViewController : UIViewController
+@interface PEMLoginViewController : UIViewController {
+    
+    UITextField *username;
+    UITextField *password;
+    
+}
 
 @end
