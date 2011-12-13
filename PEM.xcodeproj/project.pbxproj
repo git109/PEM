@@ -13,7 +13,6 @@
 		854128A814957CAB00B9934D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 854128A614957CAB00B9934D /* InfoPlist.strings */; };
 		854128AA14957CAB00B9934D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 854128A914957CAB00B9934D /* main.m */; };
 		854128AE14957CAB00B9934D /* PEMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 854128AD14957CAB00B9934D /* PEMAppDelegate.m */; };
-		854128B114957CAB00B9934D /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 854128AF14957CAB00B9934D /* MainStoryboard.storyboard */; };
 		854128B414957CAB00B9934D /* PEMTrackingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 854128B314957CAB00B9934D /* PEMTrackingViewController.m */; };
 		854128B614957CAB00B9934D /* first.png in Resources */ = {isa = PBXBuildFile; fileRef = 854128B514957CAB00B9934D /* first.png */; };
 		854128B814957CAB00B9934D /* first@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 854128B714957CAB00B9934D /* first@2x.png */; };
@@ -23,6 +22,7 @@
 		854128C614957CBD00B9934D /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 854128C514957CBD00B9934D /* CoreData.framework */; };
 		854128C914957CD400B9934D /* PEM.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 854128C714957CD400B9934D /* PEM.xcdatamodeld */; };
 		854128D314957EE500B9934D /* PEMLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 854128D214957EE500B9934D /* PEMLoginViewController.m */; };
+		8576CD7B1497A6D600DAC001 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 854128AF14957CAB00B9934D /* MainStoryboard.storyboard */; };
 		85C096F71496C7F300E7D4D6 /* PEMCreateProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85C096F61496C7F300E7D4D6 /* PEMCreateProfileViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -183,11 +183,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				854128A814957CAB00B9934D /* InfoPlist.strings in Resources */,
-				854128B114957CAB00B9934D /* MainStoryboard.storyboard in Resources */,
 				854128B614957CAB00B9934D /* first.png in Resources */,
 				854128B814957CAB00B9934D /* first@2x.png in Resources */,
 				854128BD14957CAB00B9934D /* second.png in Resources */,
 				854128BF14957CAB00B9934D /* second@2x.png in Resources */,
+				8576CD7B1497A6D600DAC001 /* MainStoryboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

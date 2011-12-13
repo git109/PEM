@@ -8,18 +8,21 @@
 
 
 
-@interface PEMCreateProfileViewController : UIViewController {
+@interface PEMCreateProfileViewController : UIViewController <UITextFieldDelegate> {
 
     UITextField *firstName;
     UITextField *lastName;
-    UITextField *username;
+    UITextField *userName;
     UITextField *password;
 
 }
+@property (weak, nonatomic) IBOutlet UITextField *firstName;
+@property (weak, nonatomic) IBOutlet UITextField *lastName;
+@property (weak, nonatomic) IBOutlet UITextField *userName;
+@property (weak, nonatomic) IBOutlet UITextField *password;
 
-@property (nonatomic, retain) IBOutlet UITextField *firstName;
-@property (nonatomic, retain) IBOutlet UITextField *lastName;
-@property (nonatomic, retain) IBOutlet UITextField *username;
-@property (nonatomic, retain) IBOutlet UITextField *password;
+
+- (IBAction)createProfile:(id)sender;
+- (IBAction)findProfile:(id)sender;
 
 @end

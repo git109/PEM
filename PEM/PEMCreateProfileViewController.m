@@ -13,8 +13,76 @@
 
 @synthesize firstName = _firstName;
 @synthesize lastName = _lastName;
-@synthesize username = _userName;
+@synthesize userName = _userName;
 @synthesize password = _password;
+
+
+- (void) createProfile:(id)sender
+{
+    PEMAppDelegate *appDelegate = 
+    [[UIApplication sharedApplication] delegate];
+    
+    NSManagedObjectContext *context = 
+    [appDelegate managedObjectContext];
+    NSManagedObject *newProfile;
+    newProfile = [NSEntityDescription
+                  insertNewObjectForEntityForName:@"Profiles"
+                  inManagedObjectContext:context];
+    [newProfile setValue:_firstName.text forKey:@"firstName"];
+    [newProfile setValue:_lastName.text forKey:@"lastName"];
+    [newProfile setValue:_userName.text forKey:@"userName"];
+    [newProfile setValue:_password.text forKey:@"password"];
+    
+    // clear all fields
+    _firstName.text = @"";
+    _lastName.text = @"";
+    _userName.text = @"";
+    _password.text = @"";
+    NSError *error;
+    [context save:&error];
+}
+
+
+- (IBAction)findProfile:(id)sender {
+    
+    PEMAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *context = [appDelegate managedObjectContext];
+    
+    NSEntityDescription *entityDesc = 
+    [NSEntityDescription entityForName:@"Profiles" 
+                inManagedObjectContext:context];
+    
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:entityDesc];
+    
+    
+    NSError *error;
+    NSArray *objects = [context executeFetchRequest:request error:&error];
+    
+    NSManagedObject *profile = nil;
+    
+    if ([objects count] != 0) {
+        
+        profile = [objects objectAtIndex:0];
+        _firstName.text = [profile valueForKey:@"firstName"];
+        _lastName.text = [profile valueForKey:@"lastName"];
+        _userName.text = [profile valueForKey:@"userName"];
+        _password.text = [profile valueForKey:@"password"];
+
+    }
+
+    
+}
+
+
+// give up first responder status - hide keyboard
+- (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
+    if (theTextField == self.password) {
+        [theTextField resignFirstResponder];
+    }
+    return YES;
+}
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -52,6 +120,10 @@
 
 - (void)viewDidUnload
 {
+    [self setFirstName:nil];
+    [self setLastName:nil];
+    [self setUserName:nil];
+    [self setPassword:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
