@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="878" systemVersion="11C74" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Profiles" syncable="YES">
+        <attribute name="email" attributeType="String" syncable="YES"/>
         <attribute name="firstName" attributeType="String" syncable="YES"/>
         <attribute name="id" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="lastName" attributeType="String" syncable="YES"/>
         <attribute name="password" attributeType="String" syncable="YES"/>
-        <attribute name="userName" attributeType="String" syncable="YES"/>
         <relationship name="collects" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TrackingData" inverseName="belongs" inverseEntity="TrackingData" syncable="YES"/>
     </entity>
     <entity name="TrackingData" syncable="YES">

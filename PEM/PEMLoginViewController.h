@@ -10,9 +10,18 @@
 
 @interface PEMLoginViewController : UIViewController {
     
-    UITextField *username;
+    UITextField *email;
     UITextField *password;
+    UILabel *statusMessage;
     
 }
+
+@property (weak, nonatomic) IBOutlet UITextField *email;
+@property (weak, nonatomic) IBOutlet UITextField *password;
+@property (weak, nonatomic) IBOutlet UILabel *statusMessage;
+
+
+- (IBAction)login:(id)sender;
+
 
 @end

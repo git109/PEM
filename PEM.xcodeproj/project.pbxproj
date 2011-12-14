@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8537ED0D14991633006815BD /* PEMProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8537ED0C14991633006815BD /* PEMProfileViewController.m */; };
 		8541289E14957CAB00B9934D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8541289D14957CAB00B9934D /* UIKit.framework */; };
 		854128A014957CAB00B9934D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8541289F14957CAB00B9934D /* Foundation.framework */; };
 		854128A214957CAB00B9934D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 854128A114957CAB00B9934D /* CoreGraphics.framework */; };
@@ -27,6 +28,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8537ED0B14991633006815BD /* PEMProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEMProfileViewController.h; sourceTree = "<group>"; };
+		8537ED0C14991633006815BD /* PEMProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEMProfileViewController.m; sourceTree = "<group>"; };
 		8541289914957CAB00B9934D /* PEM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PEM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8541289D14957CAB00B9934D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		8541289F14957CAB00B9934D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -107,6 +110,8 @@
 				854128D214957EE500B9934D /* PEMLoginViewController.m */,
 				85C096F51496C7F300E7D4D6 /* PEMCreateProfileViewController.h */,
 				85C096F61496C7F300E7D4D6 /* PEMCreateProfileViewController.m */,
+				8537ED0B14991633006815BD /* PEMProfileViewController.h */,
+				8537ED0C14991633006815BD /* PEMProfileViewController.m */,
 				854128B214957CAB00B9934D /* PEMTrackingViewController.h */,
 				854128B314957CAB00B9934D /* PEMTrackingViewController.m */,
 				854128B514957CAB00B9934D /* first.png */,
@@ -205,6 +210,7 @@
 				854128C914957CD400B9934D /* PEM.xcdatamodeld in Sources */,
 				854128D314957EE500B9934D /* PEMLoginViewController.m in Sources */,
 				85C096F71496C7F300E7D4D6 /* PEMCreateProfileViewController.m in Sources */,
+				8537ED0D14991633006815BD /* PEMProfileViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
