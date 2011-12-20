@@ -7,8 +7,8 @@
 //
 
 #import "PEMLoginViewController.h"
-#import "PEMProfileViewController.h"
-#import "PEMAppDelegate.h"
+#import "PEMTextFieldValidation.h"
+#import "PEMDatabaseQueries.h"
 
 @implementation PEMLoginViewController
 
@@ -19,56 +19,39 @@
 
 - (IBAction)login:(id)sender {
     
+    PEMDatabaseQueries *dbQueries = [[PEMDatabaseQueries alloc] init];
+    
+    // validate email
+    PEMTextFieldValidation *textFieldValidation = [[PEMTextFieldValidation alloc] init];
+    if (![textFieldValidation isValidEmail: _email.text]) {
+        
+        _statusMessage.text = @"Invalid email";
+        
+    }
+    
     // check if email/user exists
-    
-    PEMAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    NSManagedObjectContext *context = [appDelegate managedObjectContext];
-    
-    NSEntityDescription *entityDesc = 
-    [NSEntityDescription entityForName:@"Profiles" 
-                inManagedObjectContext:context];
-    
-    NSFetchRequest *emailRequest = [[NSFetchRequest alloc] init];
-    [emailRequest setEntity:entityDesc];
-    
-    NSPredicate *emailPredicate = 
-    [NSPredicate predicateWithFormat:@"(email = %@)", _email.text];
-    [emailRequest setPredicate:emailPredicate];
-    
-    NSError *error;
-    NSArray *emailObject = [context executeFetchRequest:emailRequest error:&error];
-    
-    if ([emailObject count] == 0) {
+    else if ([[dbQueries fetchSelectedFromDatabase:@"Profiles" :@"email" :_email.text] count] == 0) {
+        
         _statusMessage.text = @"User doesn't exist";
-    } else {
+    
+    }
         
-        // check if password matches
+    // check if password matches
+    else if ([[dbQueries fetchSelectedFromDatabase:@"Profiles" :@"password" :_password.text] count] == 0) {
         
-        NSFetchRequest *passwordRequest = [[NSFetchRequest alloc] init];
-        [passwordRequest setEntity:entityDesc];
+        _statusMessage.text = @"Invalid password";
         
-        NSPredicate *passwordPredicate = 
-        [NSPredicate predicateWithFormat:@"(password = %@)", _password.text];
-        [passwordRequest setPredicate:passwordPredicate];
-        
-        NSError *error;
-        NSArray *passwordObject = [context executeFetchRequest:passwordRequest error:&error];
-        
-        if ([passwordObject count] == 0) {
-            _statusMessage.text = @"Invalid password";
         } else {
-            
-            _statusMessage.text = @"Welcome";
             
             // switch to the profile view
             [self performSegueWithIdentifier:@"loginSegue" sender:sender];
         }
-        
-    }
-}
 
+}
+        
 
 // give up first responder status - hide keyboard when done typing
+// gets executed on every app's loop
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
     
     if (theTextField == _email) {

@@ -25,10 +25,6 @@
 
 
 - (IBAction)createProfile:(id)sender;
-- (BOOL)isFieldEmpty: (UITextField *)textField;
-- (BOOL)isValidEmail: (NSString *)emailEntry;
-- (BOOL)doPasswordsMatch: (UITextField *)password1: (UITextField *)password2;
-- (void) insertProfileToDatabase;
 
 
 @end

@@ -8,6 +8,8 @@
 
 #import "PEMCreateProfileViewController.h"
 #import "PEMAppDelegate.h"
+#import "PEMTextFieldValidation.h"
+#import "PEMDatabaseQueries.h"
 
 @implementation PEMCreateProfileViewController
 
@@ -99,15 +101,18 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 // Create user profile
 - (void) createProfile:(id)sender {
     
+    PEMTextFieldValidation *textFieldValidation = [[PEMTextFieldValidation alloc] init];
+    PEMDatabaseQueries *dbQueries = [[PEMDatabaseQueries alloc] init];
+    
     // validate email
-    if (![self isValidEmail: _email.text]) {
+    if (![textFieldValidation isValidEmail: _email.text]) {
         
         _statusMessage.text = @"Invalid email";
     
     }
     
     // check if passwords match
-    else if (![self doPasswordsMatch:_password :_re_password]) {
+    else if (![textFieldValidation doPasswordsMatch:_password :_re_password]) {
         
         _statusMessage.text = @"Passwords don't match";
         
@@ -117,7 +122,12 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
     else {
         
         // write to database
-        [self insertProfileToDatabase];
+        [dbQueries insertProfileDataToDatabase:@"" :@"" :_email.text :_password.text];
+        
+        // clear all fields
+        _email.text = @"";
+        _password.text = @"";
+        _re_password.text = @"";
         
         // profile created alert
         UIAlertView *profileCreatedAlert =
@@ -132,132 +142,11 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
         [self performSegueWithIdentifier:@"userCreatedSegue" sender:sender];
 
     }
-        
 }
-
-
-// empty textfiled check
-- (BOOL)isFieldEmpty: (UITextField *)textField {
-    
-    if ([textField.text length] == 0) {
-        
-        return YES;
-        
-    } else {
-        
-        return NO;
-    }
-}
-
-
-// email validation
-- (BOOL)isValidEmail: (NSString *)emailEntry {
-    
-    NSString *string = emailEntry;
-    NSString *expression = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
-    NSError *error = NULL;
-    
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:expression options:NSRegularExpressionCaseInsensitive error:&error];
-    
-    NSTextCheckingResult *match = [regex firstMatchInString:string options:0 range:NSMakeRange(0, [string length])];
-    
-    if (match) {
-        return YES;
-    } else {
-        return NO;
-    }
-    
-}
-
-
-// check if both passwords match
-- (BOOL)doPasswordsMatch: (UITextField *)password1: (UITextField *)password2 {
-    
-    if (([self isFieldEmpty:password1]) || ([self isFieldEmpty:password2])) {
-        
-        return NO;
-        
-    }
-
-    else if ([password1.text isEqualToString:password2.text]) {
-        
-        return YES;
-        
-    }
-        
-    else {
-    
-        return NO;
-    }
-}
-
-
-// insert profile data to database
-- (void) insertProfileToDatabase {
-    
-    PEMAppDelegate *appDelegate = 
-    [[UIApplication sharedApplication] delegate];
-    
-    NSManagedObjectContext *context = 
-    [appDelegate managedObjectContext];
-    NSManagedObject *newProfile;
-    newProfile = [NSEntityDescription
-                  insertNewObjectForEntityForName:@"Profiles"
-                  inManagedObjectContext:context];
-    [newProfile setValue:@"" forKey:@"firstName"];
-    [newProfile setValue:@"" forKey:@"lastName"];
-    [newProfile setValue:_email.text forKey:@"email"];
-    [newProfile setValue:_password.text forKey:@"password"];
-    
-    // clear all fields
-    _email.text = @"";
-    _password.text = @"";
-    _re_password.text = @"";
-    
-    NSError *error;
-    [context save:&error];
-
-}
-
-
-
-
-/*
-- (IBAction)findProfile:(id)sender {
-    
-    PEMAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    NSManagedObjectContext *context = [appDelegate managedObjectContext];
-    
-    NSEntityDescription *entityDesc = 
-    [NSEntityDescription entityForName:@"Profiles" 
-                inManagedObjectContext:context];
-    
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    [request setEntity:entityDesc];
-    
-    
-    NSError *error;
-    NSArray *objects = [context executeFetchRequest:request error:&error];
-    
-    NSManagedObject *profile = nil;
-    
-    if ([objects count] != 0) {
-        
-        profile = [objects objectAtIndex:0];
-        _firstName.text = [profile valueForKey:@"firstName"];
-        _lastName.text = [profile valueForKey:@"lastName"];
-        _userName.text = [profile valueForKey:@"userName"];
-        _password.text = [profile valueForKey:@"password"];
-
-    }
-
-    
-}
- 
- */
 
 
 // give up first responder status - hide keyboard when done typing
+// gets executed on every app's loop
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
     if (theTextField == _email) {
         

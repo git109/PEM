@@ -25,6 +25,8 @@
 		854128D314957EE500B9934D /* PEMLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 854128D214957EE500B9934D /* PEMLoginViewController.m */; };
 		8576CD7B1497A6D600DAC001 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 854128AF14957CAB00B9934D /* MainStoryboard.storyboard */; };
 		85C096F71496C7F300E7D4D6 /* PEMCreateProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85C096F61496C7F300E7D4D6 /* PEMCreateProfileViewController.m */; };
+		85E0FA3C149A04E400211038 /* PEMTextFieldValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = 85E0FA3B149A04E400211038 /* PEMTextFieldValidation.m */; };
+		85E0FA40149A16C000211038 /* PEMDatabaseQueries.m in Sources */ = {isa = PBXBuildFile; fileRef = 85E0FA3F149A16C000211038 /* PEMDatabaseQueries.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +57,10 @@
 		854128D214957EE500B9934D /* PEMLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEMLoginViewController.m; sourceTree = "<group>"; };
 		85C096F51496C7F300E7D4D6 /* PEMCreateProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEMCreateProfileViewController.h; sourceTree = "<group>"; };
 		85C096F61496C7F300E7D4D6 /* PEMCreateProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEMCreateProfileViewController.m; sourceTree = "<group>"; };
+		85E0FA3A149A04E400211038 /* PEMTextFieldValidation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEMTextFieldValidation.h; sourceTree = "<group>"; };
+		85E0FA3B149A04E400211038 /* PEMTextFieldValidation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEMTextFieldValidation.m; sourceTree = "<group>"; };
+		85E0FA3E149A16C000211038 /* PEMDatabaseQueries.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEMDatabaseQueries.h; sourceTree = "<group>"; };
+		85E0FA3F149A16C000211038 /* PEMDatabaseQueries.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEMDatabaseQueries.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +109,10 @@
 		854128A314957CAB00B9934D /* PEM */ = {
 			isa = PBXGroup;
 			children = (
+				85E0FA3E149A16C000211038 /* PEMDatabaseQueries.h */,
+				85E0FA3F149A16C000211038 /* PEMDatabaseQueries.m */,
+				85E0FA3A149A04E400211038 /* PEMTextFieldValidation.h */,
+				85E0FA3B149A04E400211038 /* PEMTextFieldValidation.m */,
 				854128AC14957CAB00B9934D /* PEMAppDelegate.h */,
 				854128AD14957CAB00B9934D /* PEMAppDelegate.m */,
 				854128AF14957CAB00B9934D /* MainStoryboard.storyboard */,
@@ -211,6 +221,8 @@
 				854128D314957EE500B9934D /* PEMLoginViewController.m in Sources */,
 				85C096F71496C7F300E7D4D6 /* PEMCreateProfileViewController.m in Sources */,
 				8537ED0D14991633006815BD /* PEMProfileViewController.m in Sources */,
+				85E0FA3C149A04E400211038 /* PEMTextFieldValidation.m in Sources */,
+				85E0FA40149A16C000211038 /* PEMDatabaseQueries.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
