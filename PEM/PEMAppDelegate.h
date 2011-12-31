@@ -7,8 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PEMDataCenter.h"
 
-@interface PEMAppDelegate : UIResponder <UIApplicationDelegate>
+@interface PEMAppDelegate : UIResponder <UIApplicationDelegate> {
+    
+    PEMDataCenter *dataCenter;
+    NSManagedObject *user;
+}
+
+@property (retain, nonatomic) PEMDataCenter *dataCenter;
+@property (retain, nonatomic) NSManagedObject *user;
 
 @property (strong, nonatomic) UIWindow *window;
 

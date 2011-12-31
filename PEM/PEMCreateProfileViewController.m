@@ -10,6 +10,7 @@
 #import "PEMAppDelegate.h"
 #import "PEMTextFieldValidation.h"
 #import "PEMDatabaseQueries.h"
+#import "PEMTextFieldSlider.h"
 
 @implementation PEMCreateProfileViewController
 
@@ -18,83 +19,20 @@
 @synthesize re_password = _re_password;
 @synthesize statusMessage = _statusMessage;
 
-// for Sliding UITextFields around to avoid the keyboard
-CGFloat animatedDistance;
-static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3;
-static const CGFloat MINIMUM_SCROLL_FRACTION = 0.2;
-static const CGFloat MAXIMUM_SCROLL_FRACTION = 0.8;
-static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
-static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
-
 
 // Sliding UITextFields around to avoid the keyboard
-// Method implemented by following http://cocoawithlove.com/2008/10/sliding-uitextfields-around-to-avoid.html
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    // Get the rects of the text field being edited
-    CGRect textFieldRect = [self.view.window convertRect:textField.bounds fromView:textField];
-    CGRect viewRect = [self.view.window convertRect:self.view.bounds fromView:self.view];
-    
-    // Calculate the fraction between the top and bottom of the middle section for the text field's midline
-    CGFloat midline = textFieldRect.origin.y + 0.5 * textFieldRect.size.height;
-    CGFloat numerator =
-    midline - viewRect.origin.y
-    - MINIMUM_SCROLL_FRACTION * viewRect.size.height;
-    CGFloat denominator =
-    (MAXIMUM_SCROLL_FRACTION - MINIMUM_SCROLL_FRACTION)
-    * viewRect.size.height;
-    CGFloat heightFraction = numerator / denominator;
-    
-    // Clamp this fraction
-    if (heightFraction < 0.0)
-    {
-        heightFraction = 0.0;
-    }
-    else if (heightFraction > 1.0)
-    {
-        heightFraction = 1.0;
-    }
-    
-    // Convert it into an amount to scroll by multiplying by the keyboard height for the current screen orientation
-    UIInterfaceOrientation orientation =
-    [[UIApplication sharedApplication] statusBarOrientation];
-    if (orientation == UIInterfaceOrientationPortrait ||
-        orientation == UIInterfaceOrientationPortraitUpsideDown)
-    {
-        animatedDistance = floor(PORTRAIT_KEYBOARD_HEIGHT * heightFraction);
-    }
-    else
-    {
-        animatedDistance = floor(LANDSCAPE_KEYBOARD_HEIGHT * heightFraction);
-    }
-    
-    // Apply the animation
-    CGRect viewFrame = self.view.frame;
-    viewFrame.origin.y -= animatedDistance;
-    
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationBeginsFromCurrentState:YES];
-    [UIView setAnimationDuration:KEYBOARD_ANIMATION_DURATION];
-    
-    [self.view setFrame:viewFrame];
-    
-    [UIView commitAnimations];
+    PEMTextFieldSlider *textFieldSlider = [[PEMTextFieldSlider alloc] init];
+    [textFieldSlider slideUp:self.view:textField];
 }
 
 
 // Animate back again (helper method to textFieldDidBeginEditing:textField method)
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    CGRect viewFrame = self.view.frame;
-    viewFrame.origin.y += animatedDistance;
-    
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationBeginsFromCurrentState:YES];
-    [UIView setAnimationDuration:KEYBOARD_ANIMATION_DURATION];
-    
-    [self.view setFrame:viewFrame];
-    
-    [UIView commitAnimations];
+    PEMTextFieldSlider *textFieldSlider = [[PEMTextFieldSlider alloc] init];
+    [textFieldSlider slideDown:self.view:textField];
 }
 
 
@@ -111,6 +49,12 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
     
     }
     
+    // check if user already exists
+    else if ([[dbQueries fetchSelectedFromDatabase:@"Profiles" :@"email == %@" :_email.text] count] != 0) {
+        
+        _statusMessage.text = @"User already exists";
+    }
+    
     // check if passwords match
     else if (![textFieldValidation doPasswordsMatch:_password :_re_password]) {
         
@@ -122,7 +66,8 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
     else {
         
         // write to database
-        [dbQueries insertProfileDataToDatabase:@"" :@"" :_email.text :_password.text];
+        NSManagedObjectID *ID = nil;
+        [dbQueries insertProfileDataToDatabase:ID :@"" :@"" :_email.text :_password.text];
         
         // clear all fields
         _email.text = @"";

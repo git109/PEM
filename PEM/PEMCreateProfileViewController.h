@@ -8,7 +8,7 @@
 
 
 
-@interface PEMCreateProfileViewController : UIViewController <UITextFieldDelegate> {
+@interface PEMCreateProfileViewController : UIViewController {
 
 
     UITextField *email;

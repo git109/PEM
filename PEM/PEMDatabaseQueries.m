@@ -11,14 +11,10 @@
 
 @implementation PEMDatabaseQueries 
 
-// 1 attribute fetch query
+// fetch query
 - (NSArray *)fetchSelectedFromDatabase: (NSString *)entityName:
-(NSString *)dbAttribute:
+(NSString *)query:
 (NSString *)value {
-    
-    NSString *predicateBegining = @"(";
-    NSString *predicateEnd = @" = %@)";
-    NSString *predicateFormat = [NSString stringWithFormat:@"%@ %@ %@", predicateBegining, dbAttribute, predicateEnd];
     
     PEMAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *context = [appDelegate managedObjectContext];
@@ -31,7 +27,7 @@
     [fetchRequest setEntity:entityDesc];
     
     NSPredicate *predicate = 
-    [NSPredicate predicateWithFormat:predicateFormat, value];
+    [NSPredicate predicateWithFormat:query, value];
     [fetchRequest setPredicate:predicate];
     
     NSError *error;
@@ -41,8 +37,9 @@
 
 }
 
-
+// insert query
 - (void) insertProfileDataToDatabase:
+(NSManagedObjectID *)ID:
 (NSString *)firstName:
 (NSString *)lastName:
 (NSString *)email:
@@ -57,6 +54,8 @@
     newProfile = [NSEntityDescription
                   insertNewObjectForEntityForName:@"Profiles"
                   inManagedObjectContext:context];
+    static int tempID = 0;
+    [newProfile setValue:[NSNumber numberWithInt:++tempID] forKey:@"id"];
     [newProfile setValue:firstName forKey:@"firstName"];
     [newProfile setValue:lastName forKey:@"lastName"];
     [newProfile setValue:email forKey:@"email"];

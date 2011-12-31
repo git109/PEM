@@ -8,7 +8,9 @@
 
 #import "PEMLoginViewController.h"
 #import "PEMTextFieldValidation.h"
+#import "PEMTextFieldSlider.h"
 #import "PEMDatabaseQueries.h"
+#import "PEMDataCenter.h"
 
 @implementation PEMLoginViewController
 
@@ -17,10 +19,24 @@
 @synthesize statusMessage = _statusMessage;
 
 
+// Sliding UITextFields around to avoid the keyboard
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    PEMTextFieldSlider *textFieldSlider = [[PEMTextFieldSlider alloc] init];
+    [textFieldSlider slideUp:self.view:textField];
+}
+
+
+// Animate back again (helper method to textFieldDidBeginEditing:textField method)
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    PEMTextFieldSlider *textFieldSlider = [[PEMTextFieldSlider alloc] init];
+    [textFieldSlider slideDown:self.view:textField];
+}
+
+
 - (IBAction)login:(id)sender {
-    
-    PEMDatabaseQueries *dbQueries = [[PEMDatabaseQueries alloc] init];
-    
+        
     // validate email
     PEMTextFieldValidation *textFieldValidation = [[PEMTextFieldValidation alloc] init];
     if (![textFieldValidation isValidEmail: _email.text]) {
@@ -29,22 +45,32 @@
         
     }
     
+    PEMDatabaseQueries *dbQueries = [[PEMDatabaseQueries alloc] init];
+    NSArray *users = [dbQueries fetchSelectedFromDatabase:@"Profiles" :@"email == %@" :_email.text];
+    
+    
     // check if email/user exists
-    else if ([[dbQueries fetchSelectedFromDatabase:@"Profiles" :@"email" :_email.text] count] == 0) {
+    if ([users count] == 0) {
         
         _statusMessage.text = @"User doesn't exist";
     
     }
-        
-    // check if password matches
-    else if ([[dbQueries fetchSelectedFromDatabase:@"Profiles" :@"password" :_password.text] count] == 0) {
+    
+    // check if passwords match
+    else if (![[[users objectAtIndex:0] valueForKey:@"password"] isEqualToString: _password.text]) {
         
         _statusMessage.text = @"Invalid password";
         
         } else {
             
+            // save data to data center for sharing
+            PEMDataCenter *dataCenter = [PEMDataCenter shareDataCenter];
+            dataCenter.user = [users objectAtIndex:0];
+
+
             // switch to the profile view
-            [self performSegueWithIdentifier:@"loginSegue" sender:sender];
+            [self performSegueWithIdentifier:@"goToProfileView" sender:sender];
+
         }
 
 }
@@ -68,8 +94,8 @@
 }
 
 
-/*
 
+/*
 // do something before segue is executed
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -77,16 +103,14 @@
         
         // Get destination view
         PEMProfileViewController *profileViewController = [segue destinationViewController];
+
         
-        // Get button tag number (or do whatever you need to do here, based on your object
-        NSInteger tagIndex = [(UIButton *)sender tag];
-        
-        // Pass the information to your destination view
-        [vc setSelectedButton:tagIndex];
+        profileViewController.user = self.user;
     }
 }
- 
  */
+ 
+
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

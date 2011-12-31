@@ -15,10 +15,11 @@
 
 - (NSArray *)fetchSelectedFromDatabase:
 (NSString *)entityName:
-(NSString *)dbAttribute:
+(NSString *)query:
 (NSString *)value;
 
 - (void) insertProfileDataToDatabase:
+(NSManagedObjectID *)ID:
 (NSString *)firstName:
 (NSString *)lastName:
 (NSString *)email:
