@@ -11,7 +11,7 @@
 #import "PEMDatabaseQueries.h"
 #import "PEMTextFieldSlider.h"
 
-@interface PEMCreateProfileViewController : UIViewController {
+@interface PEMCreateProfileViewController : UIViewController <UIAlertViewDelegate> {
 
     PEMDatabaseQueries *dbQueries;
     PEMTextFieldSlider *textFieldSlider;
@@ -20,6 +20,7 @@
     UITextField *password;
     UITextField *re_password;
     UILabel *statusMessage;
+    id creatProfileButtonSender;
 
 }
 
@@ -30,6 +31,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *password;
 @property (weak, nonatomic) IBOutlet UITextField *re_password;
 @property (weak, nonatomic) IBOutlet UILabel *statusMessage;
+@property (strong) id creatProfileButtonSender;
 
 
 - (IBAction)createProfile:(id)sender;

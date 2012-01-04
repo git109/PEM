@@ -60,7 +60,7 @@
         
         } else {
             
-            // save this particular profile to data center for sharing
+            // save this profile to dataCenter for sharing
             dataCenter.user = [users objectAtIndex:0];
 
             // switch to the profile view

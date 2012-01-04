@@ -124,6 +124,8 @@
     [bodyWeightButton setTitle:choice forState:UIControlStateNormal];
     [user setValue:choice forKey:@"bodyWeight"];
     
+    // save profile changes to dataCenter for sharing
+    dataCenter.user = user;
     
     // save to database
     [dbQueries saveChangesToPersistentStore];

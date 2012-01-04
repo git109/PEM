@@ -9,14 +9,15 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
+#import "PEMDataCenter.h"
 
-@interface PEMTrackingViewController : UIViewController <CLLocationManagerDelegate> {
+@interface PEMTrackingViewController : UIViewController <CLLocationManagerDelegate, UIAlertViewDelegate> {
     
+    PEMDataCenter *dataCenter;
+    NSManagedObject *user;
     CLLocationManager *locationManager;
-	CLLocation *startingPoint;
-	
-	MKMapView *mapView;
-	
+	CLLocation *startingPoint;	
+	MKMapView *mapView;	
     BOOL trackingGPS;
 	UILabel *latitudeLabel;
 	UILabel *longitudeLabel;
@@ -30,9 +31,12 @@
     NSTimer *timer;
     int tick;
     UILabel *calories;
+    id startTrackingButtonSender;
     
 }
 
+@property (strong, nonatomic) PEMDataCenter *dataCenter;
+@property (strong, nonatomic) NSManagedObject *user;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) CLLocation *startingPoint;
 @property (strong, nonatomic) IBOutlet MKMapView *mapView;
@@ -48,6 +52,7 @@
 @property (strong, nonatomic) NSTimer *timer;
 @property (nonatomic) int tick;
 @property (weak, nonatomic) IBOutlet UILabel *calories;
+@property (strong) id startTrackingButtonSender;
 
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
@@ -60,7 +65,8 @@
 - (void)startTimer;
 - (void)stopTimer;
 - (void)resetTimer;
-
+- (BOOL)isReadyToCalculateCalorieExpenditure;
+- (void)notifyAboutMissingInfo;
 
 
 

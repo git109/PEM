@@ -17,6 +17,7 @@
 @synthesize password = _password;
 @synthesize re_password = _re_password;
 @synthesize statusMessage = _statusMessage;
+@synthesize creatProfileButtonSender;
 
 
 
@@ -36,6 +37,9 @@
 
 // Create user profile
 - (void) createProfile:(id)sender {
+    
+    // passing a sender to global varioable for reuse
+    creatProfileButtonSender = sender;
     
     // validate email
     if (![textFieldValidation isValidEmail: _email.text]) {
@@ -66,18 +70,28 @@
         _email.text = @"";
         _password.text = @"";
         _re_password.text = @"";
+        _statusMessage.text = @"";
         
         // profile created alert
         UIAlertView *profileCreatedAlert =
         [[UIAlertView alloc] initWithTitle:@"Profile Successfully Created!" 
                                    message:@"Please log in."
-                                  delegate:nil
+                                  delegate:self
                          cancelButtonTitle:@"OK"
                          otherButtonTitles:nil];
         [profileCreatedAlert show];
         
+    }
+}
+
+
+// alertView delegate method which is launched on alertView button press
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0)
+    {
         // switch back to the login view to log in
-        [self performSegueWithIdentifier:@"userCreatedSegue" sender:sender];
+        [self performSegueWithIdentifier:@"userCreatedSegue" sender: creatProfileButtonSender];
 
     }
 }
@@ -101,7 +115,7 @@
     [newProfile setValue:@"" forKey:@"lastName"];
     [newProfile setValue:theEmail forKey:@"email"];
     [newProfile setValue:thePassword forKey:@"password"];
-    [newProfile setValue:@"0,0 lb" forKey:@"bodyWeight"];
+    [newProfile setValue:@"Select body weight" forKey:@"bodyWeight"];
     
     // save to database
     [dbQueries saveChangesToPersistentStore];

@@ -11,7 +11,8 @@
 @implementation PEMTrackingViewController
 
 @synthesize managedObjectContext = _managedObjectContext;
-
+@synthesize dataCenter;
+@synthesize user;
 @synthesize locationManager;
 @synthesize startingPoint;
 @synthesize mapView;
@@ -27,16 +28,26 @@
 @synthesize timer;
 @synthesize tick;
 @synthesize calories = _calories;
+@synthesize startTrackingButtonSender;
 
 
 
 // start gps tracking and timer
 - (IBAction)startTracking:(id)sender {
     
+    // capturing the sender for reuse
+    startTrackingButtonSender = sender;
+    
     if (trackingGPS) {
         
         return;
     }
+    
+    else if (![self isReadyToCalculateCalorieExpenditure]) {
+        
+        [self notifyAboutMissingInfo];
+    }
+    
     else {
         
         [locationManager startUpdatingLocation];
@@ -109,6 +120,43 @@
 }
 
 
+- (BOOL)isReadyToCalculateCalorieExpenditure {
+
+    user = dataCenter.user;
+    if ([[user valueForKey:@"bodyWeight"] isEqualToString:@"Select body weight"]) {
+        
+        return FALSE;
+    }
+    
+    else
+        return TRUE;
+}
+
+
+- (void)notifyAboutMissingInfo {
+    
+    // body weight missing alert
+    UIAlertView *bodyWeightAlert =
+    [[UIAlertView alloc] initWithTitle:@"Enter your weight!" 
+                               message:nil
+                              delegate:self
+                     cancelButtonTitle:@"OK"
+                     otherButtonTitles:nil];
+    [bodyWeightAlert show];
+
+}
+
+
+// alertView delegate method which is launched on alertView button press
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0)
+    {
+        // switch back to the profile view to enter body weight
+        [self performSegueWithIdentifier:@"profileViewSegue" sender:startTrackingButtonSender];
+        
+    }
+}
 
 
 
@@ -123,6 +171,8 @@
 - (void)viewDidLoad {
     
     trackingGPS = FALSE;
+    
+    dataCenter = [PEMDataCenter shareDataCenter];
     
     [self resetTracking:self];
 	self.locationManager = [[CLLocationManager alloc] init];

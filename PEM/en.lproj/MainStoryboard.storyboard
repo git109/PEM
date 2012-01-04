@@ -209,6 +209,7 @@
                         <outlet property="speedLabel" destination="y1o-ff-kAR" id="Cd9-gZ-Ueq"/>
                         <outlet property="time" destination="jNh-Z0-9kT" id="EF6-sg-KAg"/>
                         <outlet property="verticalAccuracyLabel" destination="za8-hl-0D6" id="XRz-7e-bqR"/>
+                        <segue destination="4" kind="modal" identifier="profileViewSegue" modalTransitionStyle="flipHorizontal" id="l59-A0-mkb"/>
                     </connections>
                 </viewController>
             </objects>
@@ -372,7 +373,7 @@
                                         <rect key="frame" x="20" y="428" width="280" height="37"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="Select body weight">
+                                        <state key="normal">
                                             <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -554,7 +555,7 @@
                                     <outlet property="delegate" destination="mde-Cd-49q" id="zjJ-3C-QuK"/>
                                 </connections>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="6oi-WN-sby">
+                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="6oi-WN-sby">
                                 <rect key="frame" x="145" y="307" width="73" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -732,7 +733,4 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
-    <inferredMetricsTieBreakers>
-        <segue reference="pWi-hB-WgQ"/>
-    </inferredMetricsTieBreakers>
 </document>
