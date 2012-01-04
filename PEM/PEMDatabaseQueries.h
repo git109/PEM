@@ -10,13 +10,19 @@
 
 @interface PEMDatabaseQueries : NSObject {
 
-    
+    PEMAppDelegate *appDelegate;
 }
+
+
+@property (strong, nonatomic) PEMAppDelegate *appDelegate;
+
 
 - (NSArray *)fetchSelectedFromDatabase:
 (NSString *)entityName:
 (NSString *)query:
 (NSString *)value;
+
+- (void)saveChangesToPersistentStore;
 
 
 

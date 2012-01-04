@@ -33,21 +33,21 @@
     
 }
 
-@property (nonatomic, retain) CLLocationManager *locationManager;
-@property (nonatomic, retain) CLLocation *startingPoint;
-@property (nonatomic, retain) IBOutlet MKMapView *mapView;
+@property (strong, nonatomic) CLLocationManager *locationManager;
+@property (strong, nonatomic) CLLocation *startingPoint;
+@property (strong, nonatomic) IBOutlet MKMapView *mapView;
 @property (nonatomic) BOOL trackingGPS;
-@property (nonatomic, retain) IBOutlet UILabel *latitudeLabel;
-@property (nonatomic, retain) IBOutlet UILabel *longitudeLabel;
-@property (nonatomic, retain) IBOutlet UILabel *horizontalAccuracyLabel;
-@property (nonatomic, retain) IBOutlet UILabel *altitudeLabel;
-@property (nonatomic, retain) IBOutlet UILabel *verticalAccuracyLabel;
-@property (nonatomic, retain) IBOutlet UILabel *distanceTraveledLabel;
-@property (nonatomic, retain) IBOutlet UILabel *speedLabel;
-@property (nonatomic, retain) IBOutlet UILabel *time;
-@property (nonatomic, retain) NSTimer *timer;
+@property (weak, nonatomic) IBOutlet UILabel *latitudeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *longitudeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *horizontalAccuracyLabel;
+@property (weak, nonatomic) IBOutlet UILabel *altitudeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *verticalAccuracyLabel;
+@property (weak, nonatomic) IBOutlet UILabel *distanceTraveledLabel;
+@property (weak, nonatomic) IBOutlet UILabel *speedLabel;
+@property (weak, nonatomic) IBOutlet UILabel *time;
+@property (strong, nonatomic) NSTimer *timer;
 @property (nonatomic) int tick;
-@property (nonatomic, retain) IBOutlet UILabel *calories;
+@property (weak, nonatomic) IBOutlet UILabel *calories;
 
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;

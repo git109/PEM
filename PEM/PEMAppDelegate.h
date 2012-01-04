@@ -15,8 +15,8 @@
     NSManagedObject *user;
 }
 
-@property (retain, nonatomic) PEMDataCenter *dataCenter;
-@property (retain, nonatomic) NSManagedObject *user;
+@property (strong, nonatomic) PEMDataCenter *dataCenter;
+@property (strong, nonatomic) NSManagedObject *user;
 
 @property (strong, nonatomic) UIWindow *window;
 

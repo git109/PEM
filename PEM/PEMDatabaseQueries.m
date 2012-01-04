@@ -10,12 +10,27 @@
 
 @implementation PEMDatabaseQueries 
 
+@synthesize appDelegate;
+
+
+- (id) init {
+    
+    self = [super init];
+    
+    if (self != nil) {
+    
+        appDelegate = [[UIApplication sharedApplication] delegate];
+    }
+    
+    return self;
+}
+
+
 // fetch query
 - (NSArray *)fetchSelectedFromDatabase: (NSString *)entityName:
 (NSString *)query:
 (NSString *)value {
     
-    PEMAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *context = [appDelegate managedObjectContext];
     
     NSEntityDescription *entityDesc = 
@@ -34,6 +49,16 @@
     
     return results;
 
+}
+
+
+- (void)saveChangesToPersistentStore {
+    
+    NSManagedObjectContext *context = [appDelegate managedObjectContext];
+    
+    NSError *error;
+    [context save:&error];
+    
 }
 
 

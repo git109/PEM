@@ -10,16 +10,19 @@
 
 @implementation PEMCreateProfileViewController
 
+@synthesize dbQueries;
+@synthesize textFieldSlider;
+@synthesize textFieldValidation;
 @synthesize email = _email;
 @synthesize password = _password;
 @synthesize re_password = _re_password;
 @synthesize statusMessage = _statusMessage;
 
 
+
 // Sliding UITextFields around to avoid the keyboard
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    PEMTextFieldSlider *textFieldSlider = [[PEMTextFieldSlider alloc] init];
     [textFieldSlider slideUp:self.view:textField];
 }
 
@@ -27,16 +30,12 @@
 // Animate back again (helper method to textFieldDidBeginEditing:textField method)
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    PEMTextFieldSlider *textFieldSlider = [[PEMTextFieldSlider alloc] init];
     [textFieldSlider slideDown:self.view:textField];
 }
 
 
 // Create user profile
 - (void) createProfile:(id)sender {
-    
-    PEMTextFieldValidation *textFieldValidation = [[PEMTextFieldValidation alloc] init];
-    PEMDatabaseQueries *dbQueries = [[PEMDatabaseQueries alloc] init];
     
     // validate email
     if (![textFieldValidation isValidEmail: _email.text]) {
@@ -57,12 +56,11 @@
         _statusMessage.text = @"Passwords don't match";
         
     }
-
     
     else {
         
         // insert profile to database
-        [self insertProfileToDatabase:@"" :@"" :_email.text :_password.text];
+        [self insertProfileToDatabase:_email.text :_password.text];
         
         // clear all fields
         _email.text = @"";
@@ -87,8 +85,6 @@
 
 // insert profile to database
 - (void) insertProfileToDatabase:
-(NSString *)theFirstName:
-(NSString *)theLastName:
 (NSString *)theEmail:
 (NSString *)thePassword {
     
@@ -101,14 +97,14 @@
     newProfile = [NSEntityDescription
                   insertNewObjectForEntityForName:@"Profiles"
                   inManagedObjectContext:context];
-    [newProfile setValue:theFirstName forKey:@"firstName"];
-    [newProfile setValue:theLastName forKey:@"lastName"];
+    [newProfile setValue:@"" forKey:@"firstName"];
+    [newProfile setValue:@"" forKey:@"lastName"];
     [newProfile setValue:theEmail forKey:@"email"];
     [newProfile setValue:thePassword forKey:@"password"];
+    [newProfile setValue:@"0,0 lb" forKey:@"bodyWeight"];
     
-    
-    NSError *error;
-    [context save:&error];
+    // save to database
+    [dbQueries saveChangesToPersistentStore];
     
 }
 
@@ -152,8 +148,12 @@
 
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
+    
+    dbQueries = [[PEMDatabaseQueries alloc] init];
+    textFieldSlider = [[PEMTextFieldSlider alloc] init];
+    textFieldValidation = [[PEMTextFieldValidation alloc] init];
+    
     [super viewDidLoad];
 }
 

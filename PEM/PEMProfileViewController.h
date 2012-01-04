@@ -15,6 +15,10 @@
 
 @interface PEMProfileViewController : UIViewController <UIActionSheetDelegate, UIPickerViewDelegate, UIPickerViewDataSource> {
 
+    PEMDatabaseQueries *dbQueries;
+    PEMTextFieldSlider *textFieldSlider;
+    PEMTextFieldValidation *textFieldValidation;
+    PEMDataCenter *dataCenter;
     UITextField *firstName;
     UITextField *lastName;
     UITextField *email;
@@ -26,10 +30,14 @@
     UIPickerView *bodyWeightPicker;
     NSMutableArray *bodyWeightPickerArray;
     IBOutlet UIButton *bodyWeightButton;
-    NSString *choice;
-
+    NSString *choice;    
 }
-@property (retain, nonatomic) NSManagedObject *user;
+
+@property (strong, nonatomic) PEMDatabaseQueries *dbQueries;
+@property (strong, nonatomic) PEMTextFieldValidation *textFieldValidation;
+@property (strong, nonatomic) PEMTextFieldSlider *textFieldSlider;
+@property (strong, nonatomic) PEMDataCenter *dataCenter;
+@property (strong, nonatomic) NSManagedObject *user;
 @property (weak, nonatomic) IBOutlet UITextField *firstName;
 @property (weak, nonatomic) IBOutlet UITextField *lastName;
 @property (weak, nonatomic) IBOutlet UITextField *email;
@@ -37,8 +45,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *re_password;
 @property (weak, nonatomic) IBOutlet UILabel *statusMessage;
 @property (weak, nonatomic) IBOutlet UIPickerView *bodyWeightPicker;
-@property (retain, nonatomic) NSMutableArray *bodyWeightPickerArray;
-@property (retain, nonatomic) NSString *choice;
+@property (strong, nonatomic) NSMutableArray *bodyWeightPickerArray;
+@property (strong, nonatomic) NSString *choice;
 
 
 

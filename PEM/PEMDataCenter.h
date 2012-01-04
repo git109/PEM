@@ -13,7 +13,7 @@
     NSManagedObject *user;
 }
 
-@property(retain, nonatomic) NSManagedObject *user;
+@property(strong, nonatomic) NSManagedObject *user;
 
 +(id)shareDataCenter;
 

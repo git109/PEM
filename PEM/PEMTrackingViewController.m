@@ -16,27 +16,18 @@
 @synthesize startingPoint;
 @synthesize mapView;
 @synthesize trackingGPS;
-@synthesize latitudeLabel;
-@synthesize longitudeLabel;
-@synthesize horizontalAccuracyLabel;
-@synthesize altitudeLabel;
-@synthesize verticalAccuracyLabel;
-@synthesize distanceTraveledLabel;
-@synthesize speedLabel;
-@synthesize time;
+@synthesize latitudeLabel = _latitudeLabel;
+@synthesize longitudeLabel = _longitudeLabel;
+@synthesize horizontalAccuracyLabel = _horizontalAccuracyLabel;
+@synthesize altitudeLabel = _altitudeLabel;
+@synthesize verticalAccuracyLabel = _verticalAccuracyLabel;
+@synthesize distanceTraveledLabel = _distanceTraveledLabel;
+@synthesize speedLabel = _speedLabel;
+@synthesize time = _time;
 @synthesize timer;
 @synthesize tick;
-@synthesize calories;
+@synthesize calories = _calories;
 
-
--(id) init {
-    
-	if (self = [super init]) {
-        
-		trackingGPS = TRUE;
-	}
-	return self;
-}
 
 
 // start gps tracking and timer
@@ -67,15 +58,18 @@
 // reset gps tracking and timer
 - (void)resetTracking:(id)sender {
 	[locationManager stopUpdatingLocation];
-	latitudeLabel.text = @"0.00";
-	longitudeLabel.text = @"0.00";
-	horizontalAccuracyLabel.text = @"0.00";
-	altitudeLabel.text = @"0.00";
-	verticalAccuracyLabel.text = @"0.00";
-	distanceTraveledLabel.text = @"0.00";
-	speedLabel.text = @"0.00";
+	_latitudeLabel.text = @"0.00";
+	_longitudeLabel.text = @"0.00";
+	_horizontalAccuracyLabel.text = @"0.00";
+	_altitudeLabel.text = @"0.00";
+	_verticalAccuracyLabel.text = @"0.00";
+	_distanceTraveledLabel.text = @"0.00";
+	_speedLabel.text = @"0.00";
     
+    [locationManager stopUpdatingLocation];
+    [self stopTimer];
     [self resetTimer];
+    trackingGPS = FALSE;
 }
 
 
@@ -99,7 +93,7 @@
     minutes = 0;
     seconds = 0;
     
-    time.text = [NSString stringWithFormat:@"%02d:%02d:%02d", hours, minutes, seconds];
+    _time.text = [NSString stringWithFormat:@"%02d:%02d:%02d", hours, minutes, seconds];
 }
 
 - (void)updateTimer {
@@ -110,7 +104,7 @@
     hours = tick / 3600;
     minutes = (tick % 3600) / 60;
     seconds = (tick %3600) % 60;
-    time.text = [NSString stringWithFormat:@"%02d:%02d:%02d", hours, minutes, seconds];
+    _time.text = [NSString stringWithFormat:@"%02d:%02d:%02d", hours, minutes, seconds];
     
 }
 
@@ -127,6 +121,8 @@
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad {
+    
+    trackingGPS = FALSE;
     
     [self resetTracking:self];
 	self.locationManager = [[CLLocationManager alloc] init];
@@ -169,36 +165,36 @@
 	
 	NSString *latitudeString = [[NSString alloc] initWithFormat:@"%g\u00B0",
 								newLocation.coordinate.latitude];
-	latitudeLabel.text = latitudeString;
+	_latitudeLabel.text = latitudeString;
 	
 	
 	NSString *longitudeString = [[NSString alloc] initWithFormat:@"%g\u00B0",
 								 newLocation.coordinate.longitude];
-	longitudeLabel.text = longitudeString;
+	_longitudeLabel.text = longitudeString;
 	
 	
 	NSString *horizontalAccuracyString = [[NSString alloc] initWithFormat:@"%gm",
 										  newLocation.horizontalAccuracy];
-	horizontalAccuracyLabel.text = horizontalAccuracyString;
+	_horizontalAccuracyLabel.text = horizontalAccuracyString;
 	
 	
 	NSString *altitudeString = [[NSString alloc] initWithFormat:@"%gm",
 								newLocation.altitude];
-	altitudeLabel.text = altitudeString;
+	_altitudeLabel.text = altitudeString;
 	
 	
 	NSString *verticalAccuracyString = [[NSString alloc] initWithFormat:@"%gm",
 										newLocation.verticalAccuracy];
-	verticalAccuracyLabel.text = verticalAccuracyString;
+	_verticalAccuracyLabel.text = verticalAccuracyString;
 	
 	CLLocationDistance distance = [newLocation distanceFromLocation:startingPoint];
 	
 	distanceString = [[NSString alloc] initWithFormat:@"%gm", distance];
-	distanceTraveledLabel.text = distanceString;
+	_distanceTraveledLabel.text = distanceString;
 	
 	NSString *speedString = [[NSString alloc] initWithFormat:@"%gm",
 							 newLocation.speed];
-	speedLabel.text = speedString;
+	_speedLabel.text = speedString;
 	
 	
 }

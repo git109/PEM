@@ -10,15 +10,19 @@
 
 @implementation PEMLoginViewController
 
+@synthesize dbQueries;
+@synthesize textFieldSlider;
+@synthesize textFieldValidation;
+@synthesize dataCenter;
 @synthesize email = _email;
 @synthesize password = _password;
 @synthesize statusMessage = _statusMessage;
 
 
+
 // Sliding UITextFields around to avoid the keyboard
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    PEMTextFieldSlider *textFieldSlider = [[PEMTextFieldSlider alloc] init];
     [textFieldSlider slideUp:self.view:textField];
 }
 
@@ -26,7 +30,6 @@
 // Animate back again (helper method to textFieldDidBeginEditing:textField method)
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    PEMTextFieldSlider *textFieldSlider = [[PEMTextFieldSlider alloc] init];
     [textFieldSlider slideDown:self.view:textField];
 }
 
@@ -34,14 +37,12 @@
 - (IBAction)login:(id)sender {
         
     // validate email
-    PEMTextFieldValidation *textFieldValidation = [[PEMTextFieldValidation alloc] init];
     if (![textFieldValidation isValidEmail: _email.text]) {
         
         _statusMessage.text = @"Invalid email";
         
     }
     
-    PEMDatabaseQueries *dbQueries = [[PEMDatabaseQueries alloc] init];
     NSArray *users = [dbQueries fetchSelectedFromDatabase:@"Profiles" :@"email == %@" :_email.text];
     
     
@@ -60,9 +61,7 @@
         } else {
             
             // save this particular profile to data center for sharing
-            PEMDataCenter *dataCenter = [PEMDataCenter shareDataCenter];
             dataCenter.user = [users objectAtIndex:0];
-
 
             // switch to the profile view
             [self performSegueWithIdentifier:@"goToProfileView" sender:sender];
@@ -111,13 +110,18 @@
 }
 */
 
-/*
+
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
+    
+    dbQueries = [[PEMDatabaseQueries alloc] init];
+    textFieldSlider = [[PEMTextFieldSlider alloc] init];
+    textFieldValidation = [[PEMTextFieldValidation alloc] init];
+    dataCenter = [PEMDataCenter shareDataCenter];
+    
     [super viewDidLoad];
 }
-*/
+
 
 - (void)viewDidUnload
 {

@@ -10,6 +10,10 @@
 
 @implementation PEMProfileViewController
 
+@synthesize dbQueries;
+@synthesize textFieldValidation;
+@synthesize textFieldSlider;
+@synthesize dataCenter;
 @synthesize firstName = _firstName;
 @synthesize lastName = _lastName;
 @synthesize email = _email;
@@ -26,7 +30,6 @@
 // Sliding UITextFields around to avoid the keyboard
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    PEMTextFieldSlider *textFieldSlider = [[PEMTextFieldSlider alloc] init];
     [textFieldSlider slideUp:self.view:textField];
 }
 
@@ -36,7 +39,6 @@
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     
-    PEMTextFieldSlider *textFieldSlider = [[PEMTextFieldSlider alloc] init];
     [textFieldSlider slideDown:self.view:textField];
     
     [self updateProfileData: textField];
@@ -47,7 +49,6 @@
 // load profile data from database
 - (void)loadProfileData {
     
-    PEMDataCenter *dataCenter = [PEMDataCenter shareDataCenter];
     user = dataCenter.user;
     
     [_firstName setText: [user valueForKey:@"firstName"]];
@@ -55,6 +56,11 @@
     [_email setText: [user valueForKey:@"email"]];
     [_password setText: [user valueForKey:@"password"]];
     [_re_password setText: [user valueForKey:@"password"]];
+    
+    if (![[user valueForKey:@"bodyWeight"] isEqualToString:@""]) {
+    
+        [bodyWeightButton setTitle:[user valueForKey:@"bodyWeight"] forState:UIControlStateNormal];
+    }
     
 }
 
@@ -105,9 +111,6 @@
 // slide picker view
 - (IBAction)selectBodyWeight:(id)sender {
     
-    NSInteger row = [_bodyWeightPicker selectedRowInComponent:0];
-    choice = [bodyWeightPickerArray objectAtIndex:row];
-    
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.6];
     CGAffineTransform transfrom = CGAffineTransformMakeTranslation(0, 400);
@@ -115,7 +118,16 @@
     _bodyWeightPicker.alpha = _bodyWeightPicker.alpha * (-1) + 1;
     [UIView commitAnimations];    
     
+    NSInteger row = [_bodyWeightPicker selectedRowInComponent:0];
+    choice = [bodyWeightPickerArray objectAtIndex:row];
+    
     [bodyWeightButton setTitle:choice forState:UIControlStateNormal];
+    [user setValue:choice forKey:@"bodyWeight"];
+    
+    
+    // save to database
+    [dbQueries saveChangesToPersistentStore];
+
 }
 
 
@@ -142,11 +154,6 @@
 
 // update managed object and save to database
 - (void)updateProfileData: (UITextField *)theTextField {
-    
-    PEMAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    
-    NSManagedObjectContext *context = 
-    [appDelegate managedObjectContext];
 
     if (theTextField == _firstName) {
         
@@ -165,8 +172,6 @@
     
     else if (theTextField == _password) {
         
-        PEMTextFieldValidation *textFieldValidation = [[PEMTextFieldValidation alloc] init];
-        
         if([textFieldValidation doPasswordsMatch:_password :_re_password]) {
             
             [user setValue:_password.text forKey:@"password"];
@@ -182,8 +187,6 @@
     }
     
     else if (theTextField == _re_password) {
-        
-        PEMTextFieldValidation *textFieldValidation = [[PEMTextFieldValidation alloc] init];
         
         if([textFieldValidation doPasswordsMatch:_password :_re_password]) {
             
@@ -201,10 +204,7 @@
     
 
     // save to database
-    NSError *error;
-    [context save:&error];
-
-    
+    [dbQueries saveChangesToPersistentStore];
 }
 
 
@@ -246,8 +246,13 @@
 
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
+    
+    dbQueries = [[PEMDatabaseQueries alloc] init];
+    textFieldSlider = [[PEMTextFieldSlider alloc] init];
+    textFieldValidation = [[PEMTextFieldValidation alloc] init];
+    dataCenter = [PEMDataCenter shareDataCenter];
+    
     // scroll view size
     [scrollView setScrollEnabled:YES];
     [scrollView setContentSize:CGSizeMake(320, 700)];
@@ -255,6 +260,7 @@
     
     // initialize the picker view array with weight
     NSMutableArray *values = [[NSMutableArray alloc] init];
+    
     for( int i = 84; i <= 364; ++i )
     {
         NSString *weight = [NSString stringWithFormat:@"%d",i];

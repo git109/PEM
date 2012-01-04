@@ -14,12 +14,20 @@
  
 @interface PEMLoginViewController : UIViewController {
     
+    PEMDatabaseQueries *dbQueries;
+    PEMTextFieldSlider *textFieldSlider;
+    PEMTextFieldValidation *textFieldValidation;
+    PEMDataCenter *dataCenter;
     UITextField *email;
     UITextField *password;
     UILabel *statusMessage;
     
 }
 
+@property (strong, nonatomic) PEMDatabaseQueries *dbQueries;
+@property (strong, nonatomic) PEMTextFieldSlider *textFieldSlider;
+@property (strong, nonatomic) PEMTextFieldValidation *textFieldValidation;
+@property (strong, nonatomic) PEMDataCenter *dataCenter;
 @property (weak, nonatomic) IBOutlet UITextField *email;
 @property (weak, nonatomic) IBOutlet UITextField *password;
 @property (weak, nonatomic) IBOutlet UILabel *statusMessage;

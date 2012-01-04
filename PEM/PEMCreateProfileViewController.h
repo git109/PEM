@@ -13,7 +13,9 @@
 
 @interface PEMCreateProfileViewController : UIViewController {
 
-
+    PEMDatabaseQueries *dbQueries;
+    PEMTextFieldSlider *textFieldSlider;
+    PEMTextFieldValidation *textFieldValidation;
     UITextField *email;
     UITextField *password;
     UITextField *re_password;
@@ -21,6 +23,9 @@
 
 }
 
+@property (strong, nonatomic) PEMDatabaseQueries *dbQueries;
+@property (strong, nonatomic) PEMTextFieldSlider *textFieldSlider;
+@property (strong, nonatomic) PEMTextFieldValidation *textFieldValidation;
 @property (weak, nonatomic) IBOutlet UITextField *email;
 @property (weak, nonatomic) IBOutlet UITextField *password;
 @property (weak, nonatomic) IBOutlet UITextField *re_password;
@@ -29,8 +34,6 @@
 
 - (IBAction)createProfile:(id)sender;
 - (void) insertProfileToDatabase:
-(NSString *)theFirstName:
-(NSString *)theLastName:
 (NSString *)theEmail:
 (NSString *)thePassword;
 
