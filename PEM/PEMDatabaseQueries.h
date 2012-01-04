@@ -6,7 +6,7 @@
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
-
+#import "PEMAppDelegate.h"
 
 @interface PEMDatabaseQueries : NSObject {
 
@@ -18,12 +18,6 @@
 (NSString *)query:
 (NSString *)value;
 
-- (void) insertProfileDataToDatabase:
-(NSManagedObjectID *)ID:
-(NSString *)firstName:
-(NSString *)lastName:
-(NSString *)email:
-(NSString *)password;
 
 
 @end

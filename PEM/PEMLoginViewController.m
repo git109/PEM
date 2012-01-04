@@ -7,10 +7,6 @@
 //
 
 #import "PEMLoginViewController.h"
-#import "PEMTextFieldValidation.h"
-#import "PEMTextFieldSlider.h"
-#import "PEMDatabaseQueries.h"
-#import "PEMDataCenter.h"
 
 @implementation PEMLoginViewController
 
@@ -63,7 +59,7 @@
         
         } else {
             
-            // save data to data center for sharing
+            // save this particular profile to data center for sharing
             PEMDataCenter *dataCenter = [PEMDataCenter shareDataCenter];
             dataCenter.user = [users objectAtIndex:0];
 
@@ -80,35 +76,11 @@
 // gets executed on every app's loop
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
     
-    if (theTextField == _email) {
-        
-        [theTextField resignFirstResponder];
-    }
-    
-    else if (theTextField == _password) {
-        
-        [theTextField resignFirstResponder];
-    }
-    
+    [theTextField resignFirstResponder];
+
     return YES;
 }
 
-
-
-/*
-// do something before segue is executed
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([[segue identifier] isEqualToString:@"loginSegue"]) {
-        
-        // Get destination view
-        PEMProfileViewController *profileViewController = [segue destinationViewController];
-
-        
-        profileViewController.user = self.user;
-    }
-}
- */
  
 
 

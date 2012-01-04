@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		850D160D14B3C425006F855F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 850D160C14B3C425006F855F /* MapKit.framework */; };
+		850D161014B3C42B006F855F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 850D160F14B3C42B006F855F /* CoreLocation.framework */; };
 		8537ED0D14991633006815BD /* PEMProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8537ED0C14991633006815BD /* PEMProfileViewController.m */; };
 		853BF87914A4F831009A711D /* PEMDataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 853BF87814A4F831009A711D /* PEMDataCenter.m */; };
 		8541289E14957CAB00B9934D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8541289D14957CAB00B9934D /* UIKit.framework */; };
@@ -32,6 +34,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		850D160C14B3C425006F855F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		850D160F14B3C42B006F855F /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		8537ED0B14991633006815BD /* PEMProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEMProfileViewController.h; sourceTree = "<group>"; };
 		8537ED0C14991633006815BD /* PEMProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEMProfileViewController.m; sourceTree = "<group>"; };
 		853BF87714A4F831009A711D /* PEMDataCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEMDataCenter.h; sourceTree = "<group>"; };
@@ -74,6 +78,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				850D161014B3C42B006F855F /* CoreLocation.framework in Frameworks */,
+				850D160D14B3C425006F855F /* MapKit.framework in Frameworks */,
 				854128C614957CBD00B9934D /* CoreData.framework in Frameworks */,
 				8541289E14957CAB00B9934D /* UIKit.framework in Frameworks */,
 				854128A014957CAB00B9934D /* Foundation.framework in Frameworks */,
@@ -104,6 +110,8 @@
 		8541289C14957CAB00B9934D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				850D160F14B3C42B006F855F /* CoreLocation.framework */,
+				850D160C14B3C425006F855F /* MapKit.framework */,
 				854128C514957CBD00B9934D /* CoreData.framework */,
 				8541289D14957CAB00B9934D /* UIKit.framework */,
 				8541289F14957CAB00B9934D /* Foundation.framework */,

@@ -7,10 +7,6 @@
 //
 
 #import "PEMCreateProfileViewController.h"
-#import "PEMAppDelegate.h"
-#import "PEMTextFieldValidation.h"
-#import "PEMDatabaseQueries.h"
-#import "PEMTextFieldSlider.h"
 
 @implementation PEMCreateProfileViewController
 
@@ -65,9 +61,8 @@
     
     else {
         
-        // write to database
-        NSManagedObjectID *ID = nil;
-        [dbQueries insertProfileDataToDatabase:ID :@"" :@"" :_email.text :_password.text];
+        // insert profile to database
+        [self insertProfileToDatabase:@"" :@"" :_email.text :_password.text];
         
         // clear all fields
         _email.text = @"";
@@ -90,23 +85,41 @@
 }
 
 
+// insert profile to database
+- (void) insertProfileToDatabase:
+(NSString *)theFirstName:
+(NSString *)theLastName:
+(NSString *)theEmail:
+(NSString *)thePassword {
+    
+    PEMAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    
+    NSManagedObjectContext *context = 
+    [appDelegate managedObjectContext];
+    
+    NSManagedObject *newProfile;
+    newProfile = [NSEntityDescription
+                  insertNewObjectForEntityForName:@"Profiles"
+                  inManagedObjectContext:context];
+    [newProfile setValue:theFirstName forKey:@"firstName"];
+    [newProfile setValue:theLastName forKey:@"lastName"];
+    [newProfile setValue:theEmail forKey:@"email"];
+    [newProfile setValue:thePassword forKey:@"password"];
+    
+    
+    NSError *error;
+    [context save:&error];
+    
+}
+
+
+
 // give up first responder status - hide keyboard when done typing
 // gets executed on every app's loop
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
-    if (theTextField == _email) {
-        
-        [theTextField resignFirstResponder];
-    }
     
-    else if (theTextField == _password) {
-    
-        [theTextField resignFirstResponder];
-    }
-    
-    else if (theTextField == _re_password) {
-        
-        [theTextField resignFirstResponder];
-    }
+    [theTextField resignFirstResponder];
+
     return YES;
 }
 

@@ -6,7 +6,6 @@
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "PEMAppDelegate.h"
 #import "PEMTextFieldSlider.h"
 
 @implementation PEMTextFieldSlider

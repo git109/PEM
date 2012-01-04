@@ -3,7 +3,6 @@
     <entity name="Profiles" syncable="YES">
         <attribute name="email" attributeType="String" syncable="YES"/>
         <attribute name="firstName" attributeType="String" syncable="YES"/>
-        <attribute name="id" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="lastName" attributeType="String" syncable="YES"/>
         <attribute name="password" attributeType="String" syncable="YES"/>
         <relationship name="collects" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TrackingData" inverseName="belongs" inverseEntity="TrackingData" syncable="YES"/>
@@ -18,7 +17,7 @@
         <relationship name="belongs" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Profiles" inverseName="collects" inverseEntity="Profiles" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Profiles" positionX="-4475" positionY="-3483" width="128" height="135"/>
+        <element name="Profiles" positionX="-4475" positionY="-3483" width="128" height="120"/>
         <element name="TrackingData" positionX="-4158" positionY="-3339" width="128" height="150"/>
     </elements>
 </model>

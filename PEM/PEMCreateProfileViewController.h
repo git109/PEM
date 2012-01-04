@@ -6,7 +6,10 @@
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
-
+#import "PEMAppDelegate.h"
+#import "PEMTextFieldValidation.h"
+#import "PEMDatabaseQueries.h"
+#import "PEMTextFieldSlider.h"
 
 @interface PEMCreateProfileViewController : UIViewController {
 
@@ -25,6 +28,11 @@
 
 
 - (IBAction)createProfile:(id)sender;
+- (void) insertProfileToDatabase:
+(NSString *)theFirstName:
+(NSString *)theLastName:
+(NSString *)theEmail:
+(NSString *)thePassword;
 
 
 @end

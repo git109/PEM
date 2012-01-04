@@ -6,7 +6,7 @@
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
-
+#import "PEMAppDelegate.h"
 
 @interface PEMTextFieldSlider : UIViewController <UITextFieldDelegate> {
 

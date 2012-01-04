@@ -7,6 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PEMTextFieldValidation.h"
+#import "PEMTextFieldSlider.h"
+#import "PEMDatabaseQueries.h"
+#import "PEMDataCenter.h"
  
 @interface PEMLoginViewController : UIViewController {
     

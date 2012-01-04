@@ -7,7 +7,6 @@
 //
 
 #import "PEMDatabaseQueries.h"
-#import "PEMAppDelegate.h"
 
 @implementation PEMDatabaseQueries 
 
@@ -37,34 +36,5 @@
 
 }
 
-// insert query
-- (void) insertProfileDataToDatabase:
-(NSManagedObjectID *)ID:
-(NSString *)firstName:
-(NSString *)lastName:
-(NSString *)email:
-(NSString *)password {
-    
-    PEMAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    
-    NSManagedObjectContext *context = 
-    [appDelegate managedObjectContext];
-    
-    NSManagedObject *newProfile;
-    newProfile = [NSEntityDescription
-                  insertNewObjectForEntityForName:@"Profiles"
-                  inManagedObjectContext:context];
-    static int tempID = 0;
-    [newProfile setValue:[NSNumber numberWithInt:++tempID] forKey:@"id"];
-    [newProfile setValue:firstName forKey:@"firstName"];
-    [newProfile setValue:lastName forKey:@"lastName"];
-    [newProfile setValue:email forKey:@"email"];
-    [newProfile setValue:password forKey:@"password"];
-    
-    
-    NSError *error;
-    [context save:&error];
-
-}
 
 @end
